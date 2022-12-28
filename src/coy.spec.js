@@ -59,7 +59,7 @@ describe('coy.js', () => {
   });
 
   test('fileReducer', () => {
-    expect(coy.fileReducer({}, 'test/fixtures/index.vue')['test/fixtures/index.vue']).toBeFalsy();
+    expect(coy.fileReducer({}, 'test/fixtures/index.vue')['test/fixtures/index.vue']).toBeTruthy();
     expect(coy.fileReducer({}, 'test/fixtures/missing.vue')['test/fixtures/missing.vue']).toBeTruthy();
     expect(coy.fileReducer({}, 'test/fixtures/no-test.vue')['test/fixtures/no-test.vue']).toBeTruthy();
     expect(coy.fileReducer({}, 'test/fixtures/ignored.vue')['test/fixtures/ignored.vue']).toBeFalsy();

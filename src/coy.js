@@ -5,7 +5,7 @@ const vueCompilerSfc = require('@vue/compiler-sfc');
 const chalk = require('chalk');
 const glob = require('glob');
 const { camelCase, get, fill, defaults, mapValues, groupBy, trim, map, debounce } = require('lodash');
-const { DEFAULT_CONFIG, IGNORE_COMMENT, GROUPS_TO_TEST } = require('./constants');
+const { DEFAULT_CONFIG, IGNORE_COMMENT, GROUPS_TO_TEST, HOOKS_TO_TEST } = require('./constants');
 
 module.exports = {
   config: {},
@@ -71,11 +71,18 @@ module.exports = {
     const component = sfcParts.find((part) => part.type === 'ExportDefaultDeclaration');
 
     const nodes = get(component, 'declaration.properties', []).filter((node) => {
-      return GROUPS_TO_TEST.includes(get(node, 'key.name'));
+      return [...HOOKS_TO_TEST, ...GROUPS_TO_TEST].includes(get(node, 'key.name'));
     });
-
     const toBeTested = nodes.reduce((result, node) => {
       const parent = get(node, 'key.name');
+
+      if (HOOKS_TO_TEST.includes(parent)) {
+        return result.concat({
+          ...node,
+          key: parent,
+          parent: 'hooks',
+        });
+      }
 
       return result.concat(
         get(node.value, 'properties', [])
