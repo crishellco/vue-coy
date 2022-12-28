@@ -1,16 +1,19 @@
 {
-  "name": "coy",
+  "name": "@crishellco/vue-coy",
   "version": "0.0.0-semantically-released",
   "description": "A CLI tool to help identify missing Vue component tests.",
   "license": "MIT",
   "source": "src/index.js",
   "main": "dist/main.js",
-  "bin": "dist/main.js",
+  "bin": {
+    "coy": "./bin/coy"
+  },
   "files": [
+    "bin/",
     "dist/"
   ],
   "scripts": {
-    "build": "rollup src/index.js --file dist/main.js --banner '#!/usr/bin/env node' --format 'cjs'",
+    "build": "rollup -c",
     "test": "npm-run-all --print-label --parallel lint:* --parallel test:*",
     "test:unit": "jest src",
     "lint:js": "eslint src",
@@ -31,14 +34,15 @@
     "access": "public"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.19.1",
     "@babel/core": "7.20.7",
+    "@babel/eslint-parser": "^7.19.1",
     "@babel/preset-env": "7.20.2",
     "@commitlint/cli": "17.3.0",
     "@form8ion/commitlint-config": "1.0.40",
     "@form8ion/remark-lint-preset": "4.0.2",
+    "@rollup/plugin-commonjs": "^24.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.1",
     "@vue/compiler-sfc": "^3.2.45",
-    "babel-jest": "29.3.1",
     "chalk": "^4.0.0",
     "commander": "^9.4.1",
     "core-js": "3.26.1",
@@ -57,18 +61,8 @@
     "npm-run-all": "4.1.5",
     "prettier": "2.8.1",
     "remark-cli": "11.0.0",
-    "remark-toc": "8.0.1",
+    "remark-toc": "^8.0.1",
     "rollup": "^3.9.0",
     "semantic-release": "19.0.5"
-  },
-  "gitHooks": {
-    "pre-commit": "lint-staged",
-    "pre-push": "yarn test:unit --coverage=false"
-  },
-  "lint-staged": {
-    "*.{js}": [
-      "eslint src",
-      "git add"
-    ]
   }
 }
