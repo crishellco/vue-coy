@@ -10,5 +10,5 @@ module.exports = {
     },
   ],
   plugins: [commonJs(), nodeResolve()],
-  external: ['chalk', 'glob', 'lodash'],
+  external: ['chalk', 'chokidar', 'glob', 'lodash'],
 };
