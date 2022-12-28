@@ -1,3 +1,4 @@
+let chokidar;
 let coy;
 let fs;
 let report;
@@ -6,6 +7,7 @@ let vueCompilerSfc;
 describe('coy.js', () => {
   beforeEach(() => {
     global.process.exit = jest.fn();
+    chokidar = require('chokidar');
     coy = require('./coy');
     fs = require('fs');
     report = require('../test/fixtures/report');
@@ -38,6 +40,11 @@ describe('coy.js', () => {
     expect(global.process.exit).toHaveBeenCalledWith(1);
 
     coy.log.mockReset();
+    global.process.exit.mockReset();
+    coy.prettyPrintReport(report, true);
+    expect(global.process.exit).not.toHaveBeenCalled();
+
+    coy.log.mockReset();
     report['pages/index.vue'].testSource = null;
     coy.prettyPrintReport(report);
     expect(coy.log).toHaveBeenCalledTimes(7);
@@ -62,6 +69,7 @@ describe('coy.js', () => {
   });
 
   test('main', () => {
+    chokidar.watch = jest.fn().mockReturnValue({ on: jest.fn() });
     coy.fileReducer = jest.fn().mockReturnValue(report);
     coy.saveReport = jest.fn();
     coy.prettyPrintReport = jest.fn();
@@ -71,5 +79,8 @@ describe('coy.js', () => {
 
     coy.main({ save: true });
     expect(coy.saveReport).toHaveBeenCalled();
+
+    coy.main({ watch: true });
+    expect(chokidar.watch).toHaveBeenCalled();
   });
 });
