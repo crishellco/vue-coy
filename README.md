@@ -1,7 +1,7 @@
 <p align="center">
   <img src="https://github.com/crishellco/vue-coy/workflows/Build/badge.svg" alt="Build">
   <a href="https://codecov.io/gh/crishellco/vue-coy"><img src="https://codecov.io/gh/crishellco/vue-coy/branch/master/graph/badge.svg?token=M7N86U5GF7" alt="codecov"></a>
-  <a href="https://codeclimate.com/github/crishellco/vue-coy/maintainability"><img src="https://api.codeclimate.com/v1/badges/10d5790796ad8b2f166c/maintainability" alt="Maintainability"></a>
+  <a href="https://codeclimate.com/github/crishellco/vue-coy/maintainability"><img src="https://api.codeclimate.com/v1/badges/ca1e6a9e7fe67a750024/maintainability" /></a>
   <br>
 </p>
 
