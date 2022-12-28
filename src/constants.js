@@ -6,20 +6,20 @@ exports.DEFAULT_CONFIG = {
 };
 exports.GROUPS_TO_TEST = ['watch', 'computed', 'methods'];
 exports.HOOKS_TO_TEST = [
-  'beforeCreate',
-  'created',
-  'beforeMount',
-  'mounted',
-  'beforeUpdate',
-  'updated',
   'activated',
-  'deactivated',
-  'beforeUnmount',
-  'unmounted',
+  'beforeCreate',
   'beforeDestroy',
+  'beforeMount',
+  'beforeUnmount',
+  'beforeUpdate',
+  'created',
+  'deactivated',
   'destroyed',
+  'errorCaptured',
+  'mounted',
   'renderTracked',
   'renderTriggered',
-  'errorCaptured',
+  'unmounted',
+  'updated',
 ];
 exports.IGNORE_COMMENT = 'coy-ignore-next';
