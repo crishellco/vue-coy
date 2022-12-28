@@ -121,7 +121,7 @@ module.exports = {
   main(options) {
     let userConfig;
     try {
-      userConfig = require(`${process.cwd()}/${options.config || 'coy.config.js'}`);
+      userConfig = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'coy.config.json')));
     } catch (error) {
       this.log(chalk.blue('Info'), 'Config file missing - using defaults.');
       userConfig = {};
