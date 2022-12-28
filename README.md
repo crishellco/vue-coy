@@ -40,6 +40,23 @@ yarn global add @crishellco/vue-coy
 
 ```js
 exports.GROUPS_TO_TEST = ['watch', 'computed', 'methods'];
+exports.HOOKS_TO_TEST = [
+  'beforeCreate',
+  'created',
+  'beforeMount',
+  'mounted',
+  'beforeUpdate',
+  'updated',
+  'activated',
+  'deactivated',
+  'beforeUnmount',
+  'unmounted',
+  'beforeDestroy',
+  'destroyed',
+  'renderTracked',
+  'renderTriggered',
+  'errorCaptured',
+];
 ```
 
 ### When should you use it?
@@ -96,7 +113,7 @@ $ coy -w
 
 #### Display In Terminal (default)
 
-![image](https://user-images.githubusercontent.com/1878509/209841527-fe8c952e-bc1c-43a4-9939-7973453e51c3.png)
+![image](https://user-images.githubusercontent.com/1878509/209883989-30dc37fd-082e-49d3-a148-c0c451310b18.png)
 
 #### Save To File (with `-s`)
 
