@@ -5,7 +5,7 @@ const vueCompilerSfc = require('@vue/compiler-sfc');
 const chalk = require('chalk');
 const glob = require('glob');
 const { camelCase, get, fill, defaults, mapValues, groupBy, trim, map, debounce } = require('lodash');
-const { DEFAULT_CONFIG, IGNORE_COMMENT, THINGS_TO_TEST } = require('./constants');
+const { DEFAULT_CONFIG, IGNORE_COMMENT, GROUPS_TO_TEST } = require('./constants');
 
 module.exports = {
   config: {},
@@ -71,7 +71,7 @@ module.exports = {
     const component = sfcParts.find((part) => part.type === 'ExportDefaultDeclaration');
 
     const nodes = get(component, 'declaration.properties', []).filter((node) => {
-      return THINGS_TO_TEST.includes(get(node, 'key.name'));
+      return GROUPS_TO_TEST.includes(get(node, 'key.name'));
     });
 
     const toBeTested = nodes.reduce((result, node) => {
@@ -131,7 +131,7 @@ module.exports = {
 
     this.config = defaults(userConfig, DEFAULT_CONFIG);
     const onChange = () => {
-      const files = glob.sync(`@(${this.config.paths.join('|')})/**/*.vue`, { ignore: '**/node_modules/**' });
+      const files = glob.sync(`@(${this.config.paths.join('|')})/**/*.vue`, { ignore: this.config.ignore });
       const report = files.reduce((report, file) => this.fileReducer(report, file), {});
 
       options.save ? this.saveReport(report, options.save) : this.prettyPrintReport(report, options.watch);
@@ -142,7 +142,7 @@ module.exports = {
     if (options.watch) {
       chokidar
         .watch(`@(${this.config.paths.join('|')})/**/*.(vue|${this.config.testFileExtension})`, {
-          ignored: 'node_modules',
+          ignored: this.config.ignore,
         })
         .on('change', debounce(onChange, 200));
     }

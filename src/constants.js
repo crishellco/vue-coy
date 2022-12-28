@@ -1,3 +1,8 @@
-exports.DEFAULT_CONFIG = { regex: '(.+)?{key}(.+)?', paths: ['**'], testFileExtension: 'spec.js' };
+exports.DEFAULT_CONFIG = {
+  ignore: ['node_modules'],
+  paths: ['**'],
+  regex: '(.+)?{key}(.+)?',
+  testFileExtension: 'spec.js',
+};
+exports.GROUPS_TO_TEST = ['watch', 'computed', 'methods'];
 exports.IGNORE_COMMENT = 'coy-ignore-next';
-exports.THINGS_TO_TEST = ['watch', 'computed', 'methods'];
