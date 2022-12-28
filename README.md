@@ -78,10 +78,11 @@ $ coy -s path/to/save/report.json
 
 #### Options
 
-| Flag         | Argument          | Default                    | Description                              |
-|--------------|-------------------|----------------------------|------------------------------------------|
-| `-s, --save` | `file` (optional) | `missing-test-report.json` | Saves missing test report to a JSON file |
-| `-h, --help` |                   |                            | Display help for command                 |
+| Flag          | Argument          | Default                    | Description                                    |
+|---------------|-------------------|----------------------------|------------------------------------------------|
+| `-s, --save`  | `file` (optional) | `missing-test-report.json` | Saves missing test report to a JSON file       |
+| `-w, --watch` |                   |                            | watch for changes and reevaluate missing tests |
+| `-h, --help`  |                   |                            | Display help for command                       |
 
 #### Display In Terminal (default)
 

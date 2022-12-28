@@ -1,9 +1,10 @@
 const fs = require('fs');
+const chokidar = require('chokidar');
 const path = require('path');
 const vueCompilerSfc = require('@vue/compiler-sfc');
 const chalk = require('chalk');
 const glob = require('glob');
-const { camelCase, get, fill, defaults, mapValues, groupBy, trim, map } = require('lodash');
+const { camelCase, get, fill, defaults, mapValues, groupBy, trim, map, debounce } = require('lodash');
 const { DEFAULT_CONFIG, IGNORE_COMMENT, THINGS_TO_TEST } = require('./constants');
 
 module.exports = {
@@ -13,7 +14,7 @@ module.exports = {
     return console.log(...args);
   },
 
-  prettyPrintReport(report) {
+  prettyPrintReport(report, watch = false) {
     let total = 0;
 
     this.log(chalk.blue(fill(Array(70), '-').join('')));
@@ -39,7 +40,7 @@ module.exports = {
     this.log(chalk.white('Total missing:'), chalk.red(total));
     this.log(chalk.blue(fill(Array(70), '-').join('')));
 
-    if (total) return process.exit(1);
+    if (total && !watch) return process.exit(1);
   },
 
   saveReport(report, file) {
@@ -54,7 +55,7 @@ module.exports = {
     let sfcParts = [];
 
     try {
-      testSource = fs.readFileSync(testPath, 'utf-8');
+      testSource = fs.readFileSync(testPath, 'utf-8').replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '');
     } catch (error) {
       //
     }
@@ -120,6 +121,7 @@ module.exports = {
 
   main(options) {
     let userConfig;
+
     try {
       userConfig = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'coy.config.json')));
     } catch (error) {
@@ -128,9 +130,21 @@ module.exports = {
     }
 
     this.config = defaults(userConfig, DEFAULT_CONFIG);
-    const files = glob.sync(`@(${this.config.paths.join('|')})/**/*.vue`, { ignore: '**/node_modules/**' });
-    const report = files.reduce((report, file) => this.fileReducer(report, file), {});
+    const onChange = () => {
+      const files = glob.sync(`@(${this.config.paths.join('|')})/**/*.vue`, { ignore: '**/node_modules/**' });
+      const report = files.reduce((report, file) => this.fileReducer(report, file), {});
 
-    options.save ? this.saveReport(report, options.save) : this.prettyPrintReport(report);
+      options.save ? this.saveReport(report, options.save) : this.prettyPrintReport(report, options.watch);
+    };
+
+    onChange();
+
+    if (options.watch) {
+      chokidar
+        .watch(`@(${this.config.paths.join('|')})/**/*.(vue|${this.config.testFileExtension})`, {
+          ignored: 'node_modules',
+        })
+        .on('change', debounce(onChange, 200));
+    }
   },
 };

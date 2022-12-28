@@ -1,3 +1,5 @@
 describe('index.vue', () => {
-  describe('methods', () => {});
+  describe('methods', () => {
+    //
+  });
 });
