@@ -4,11 +4,13 @@ const coy = require('./coy');
 
 (function () {
   program
-    .option('-c, --config <path>', 'path to config file')
-    .option('-w, --watch', 'watch for changes')
-    .addOption(new Option('-s, --save [file]', 'save report to a file').preset('missing-test-report.json'));
+    .addOption(new Option('-s, --save [file]', 'save report to a file').preset('missing-test-report.json'))
+    .option('-w, --watch', 'watch for changes');
   program.parse();
 
   const options = program.opts();
+
+  if (options.watch) options.save = false;
+
   coy.main(options);
 })();
