@@ -1,3 +1,5 @@
+const { DEFAULT_CONFIG } = require('./constants');
+
 let chokidar;
 let coy;
 let fs;
@@ -14,7 +16,7 @@ describe('coy.js', () => {
     vueCompilerSfc = require('@vue/compiler-sfc');
 
     fs.writeFileSync = jest.fn();
-    coy.config = { regex: '(.+)?{key}(.+)?', paths: ['**'], testFileExtension: 'spec.js' };
+    coy.config = DEFAULT_CONFIG;
   });
 
   test('log', () => {

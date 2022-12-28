@@ -36,6 +36,12 @@ yarn global add @crishellco/vue-coy
 
 ## Usage
 
+### What does it look for?
+
+```js
+exports.GROUPS_TO_TEST = ['watch', 'computed', 'methods'];
+```
+
 ### When should you use it?
 
 *   in your test suite
@@ -45,9 +51,10 @@ yarn global add @crishellco/vue-coy
 
 ### Config (optional)
 
-```json
+```js
 // coy.config.json
 {
+  "ignore": ["node_modules"],
   "paths": ["**"], 
   "regex": "(.+)?{key}(.+)?", 
   "testFileExtension": "spec.js" 
@@ -56,11 +63,12 @@ yarn global add @crishellco/vue-coy
 
 #### Options
 
-| Name                | Type     | Default             | Description                               |
-|---------------------|----------|---------------------|-------------------------------------------|
-| `paths`             | `Array`  | `['**']`            | Where to look for Vue files (globs)       |
-| `regex`             | `String` | `'(.+)?{key}(.+)?'` | How to determine if a test exists (regex) |
-| `testFileExtension` | `String` | `'spec.js'`         | Test file extension                       |
+| Name                | Type     | Default             | Description                                                                                         |
+|---------------------|----------|---------------------|-----------------------------------------------------------------------------------------------------|
+| `ignore`            | `Array`  | `['node_modules']`  | Which folders to ignore (globs)                                                                     |
+| `paths`             | `Array`  | `['**']`            | Where to look for Vue files (globs)                                                                 |
+| `regex`             | `String` | `'(.+)?{key}(.+)?'` | How to determine if a test exists (regex). `{key}` gets replaced with the name of the missing item. |
+| `testFileExtension` | `String` | `'spec.js'`         | Test file extension                                                                                 |
 
 ### Command Line
 
@@ -69,11 +77,13 @@ yarn global add @crishellco/vue-coy
 $ yarn coy 
 $ yarn coy -s
 $ yarn coy -s path/to/save/report.json
+$ yarn coy -w
 
 # globally 
 $ coy 
 $ coy -s
 $ coy -s path/to/save/report.json
+$ coy -w
 ```
 
 #### Options
