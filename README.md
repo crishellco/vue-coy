@@ -45,12 +45,12 @@ yarn global add @crishellco/vue-coy
 
 ### Config (optional)
 
-```js
-// coy.config.js
-module.exports = {
-  paths: ['**'], 
-  regex: '(.+)?{key}(.+)?', 
-  testFileExtension: 'spec.js' 
+```json
+// coy.config.json
+{
+  "paths": ["**"], 
+  "regex": "(.+)?{key}(.+)?", 
+  "testFileExtension": "spec.js" 
 }
 ```
 
@@ -67,24 +67,21 @@ module.exports = {
 ```bash
 # in a project
 $ yarn coy 
-$ yarn coy -c path/to/coy.config.js
 $ yarn coy -s
 $ yarn coy -s path/to/save/report.json
 
 # globally 
 $ coy 
-$ coy -c path/to/coy.config.js
 $ coy -s
 $ coy -s path/to/save/report.json
 ```
 
 #### Options
 
-| Flag           | Argument          | Default                    | Description                              |
-|----------------|-------------------|----------------------------|------------------------------------------|
-| `-c, --config` | `path`            |                            | Loads a specific config file             |
-| `-s, --save`   | `file` (optional) | `missing-test-report.json` | Saves missing test report to a JSON file |
-| `-h, --help`   |                   |                            | Display help for command                 |
+| Flag         | Argument          | Default                    | Description                              |
+|--------------|-------------------|----------------------------|------------------------------------------|
+| `-s, --save` | `file` (optional) | `missing-test-report.json` | Saves missing test report to a JSON file |
+| `-h, --help` |                   |                            | Display help for command                 |
 
 #### Display In Terminal (default)
 
