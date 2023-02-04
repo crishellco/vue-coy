@@ -75,8 +75,9 @@ module.exports = {
     });
     const toBeTested = nodes.reduce((result, node) => {
       const parent = get(node, 'key.name');
+      const comments = map(node.leadingComments, ({ value }) => trim(value)).join();
 
-      if (HOOKS_TO_TEST.includes(parent)) {
+      if (HOOKS_TO_TEST.includes(parent) && !comments.includes(IGNORE_COMMENT)) {
         return result.concat({
           ...node,
           key: parent,
