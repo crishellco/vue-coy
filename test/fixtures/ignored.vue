@@ -6,6 +6,9 @@
 
 <script>
   export default {
+    // coy-ignore-next
+    mounted() {},
+
     methods: {
       // coy-ignore-next
       foo() {}
