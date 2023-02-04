@@ -59,15 +59,24 @@ describe('coy.js', () => {
   });
 
   test('fileReducer', () => {
+    expect(coy.fileReducer({}, 'test/fixtures/ignored.vue')['test/fixtures/ignored.vue']).toBeFalsy();
     expect(coy.fileReducer({}, 'test/fixtures/index.vue')['test/fixtures/index.vue']).toBeTruthy();
     expect(coy.fileReducer({}, 'test/fixtures/missing.vue')['test/fixtures/missing.vue']).toBeTruthy();
     expect(coy.fileReducer({}, 'test/fixtures/no-test.vue')['test/fixtures/no-test.vue']).toBeTruthy();
-    expect(coy.fileReducer({}, 'test/fixtures/ignored.vue')['test/fixtures/ignored.vue']).toBeFalsy();
 
     jest.spyOn(vueCompilerSfc, 'compileScript').mockImplementationOnce(() => {
       throw new Error('File not found');
     });
-    expect(coy.fileReducer({}, 'test/fixtures/index.vue')).toEqual({});
+    expect(coy.fileReducer({}, 'test/fixtures/ignored.vue')).toEqual({});
+    expect(coy.fileReducer({}, 'test/fixtures/index.vue')['test/fixtures/index.vue'].missing.hooks[0].key).toBe(
+      'beforeMount'
+    );
+    expect(coy.fileReducer({}, 'test/fixtures/missing.vue')['test/fixtures/missing.vue'].missing.methods[0].key).toBe(
+      'foo'
+    );
+    expect(coy.fileReducer({}, 'test/fixtures/no-test.vue')['test/fixtures/no-test.vue'].missing.methods[0].key).toBe(
+      'foo'
+    );
   });
 
   test('main', () => {

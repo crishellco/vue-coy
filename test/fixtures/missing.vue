@@ -7,7 +7,8 @@
 <script>
   export default {
     methods: {
-      foo() {}
+      foo() {},
+      bar() {}
     }
   }
 </script>
