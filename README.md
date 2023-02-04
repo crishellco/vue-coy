@@ -80,12 +80,12 @@ exports.HOOKS_TO_TEST = [
 
 #### Options
 
-| Name                | Type     | Default             | Description                                                                                         |
-|---------------------|----------|---------------------|-----------------------------------------------------------------------------------------------------|
-| `ignore`            | `Array`  | `['node_modules']`  | Which folders to ignore (globs)                                                                     |
-| `paths`             | `Array`  | `['**']`            | Where to look for Vue files (globs)                                                                 |
-| `regex`             | `String` | `'(.+)?{key}(.+)?'` | How to determine if a test exists (regex). `{key}` gets replaced with the name of the missing item. |
-| `testFileExtension` | `String` | `'spec.js'`         | Test file extension                                                                                 |
+| Name                | Type     | Default                  | Description                                                                                         |
+|---------------------|----------|--------------------------|-----------------------------------------------------------------------------------------------------|
+| `ignore`            | `Array`  | `['**/node_modules/**']` | Which folders to ignore (globs)                                                                     |
+| `paths`             | `Array`  | `['**']`                 | Where to look for Vue files (globs)                                                                 |
+| `regex`             | `String` | `'(.+)?{key}(.+)?'`      | How to determine if a test exists (regex). `{key}` gets replaced with the name of the missing item. |
+| `testFileExtension` | `String` | `'spec.js'`              | Test file extension                                                                                 |
 
 ### Command Line
 
