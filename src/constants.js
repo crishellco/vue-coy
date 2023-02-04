@@ -1,5 +1,5 @@
 exports.DEFAULT_CONFIG = {
-  ignore: ['node_modules'],
+  ignore: ['**/node_modules/**'],
   paths: ['**'],
   regex: '(.+)?{key}(.+)?',
   testFileExtension: 'spec.js',
