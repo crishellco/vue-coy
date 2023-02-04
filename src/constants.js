@@ -1,7 +1,7 @@
 exports.DEFAULT_CONFIG = {
   ignore: ['**/node_modules/**'],
   paths: ['**'],
-  regex: '(.+)?{key}(.+)?',
+  regex: `'(.*?{key}.*?)'`,
   testFileExtension: 'spec.js',
 };
 exports.GROUPS_TO_TEST = ['watch', 'computed', 'methods'];
