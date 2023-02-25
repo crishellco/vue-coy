@@ -7,7 +7,7 @@
 
 # Vue Coy
 
-A CLI tool to help identify missing Vue component tests.
+A CLI tool to help identify missing Vue Options API component tests.
 
 ## Table of contents
 
