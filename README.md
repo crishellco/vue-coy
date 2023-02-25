@@ -92,12 +92,16 @@ exports.HOOKS_TO_TEST = [
 ```bash
 # in a project
 $ yarn coy 
+$ yarn coy -c 
+$ yarn coy -c master
 $ yarn coy -s
 $ yarn coy -s path/to/save/report.json
 $ yarn coy -w
 
 # globally 
 $ coy 
+$ coy -c
+$ coy -c master
 $ coy -s
 $ coy -s path/to/save/report.json
 $ coy -w
@@ -105,11 +109,12 @@ $ coy -w
 
 #### Options
 
-| Flag          | Argument          | Default                    | Description                                    |
-|---------------|-------------------|----------------------------|------------------------------------------------|
-| `-s, --save`  | `file` (optional) | `missing-test-report.json` | Saves missing test report to a JSON file       |
-| `-w, --watch` |                   |                            | watch for changes and reevaluate missing tests |
-| `-h, --help`  |                   |                            | Display help for command                       |
+| Flag            | Argument            | Default                    | Description                                    |
+|-----------------|---------------------|----------------------------|------------------------------------------------|
+| `-c, --changed` | `branch` (optional) | `master`                   | Only analyze changes compared to a branch      |
+| `-s, --save`    | `file` (optional)   | `missing-test-report.json` | Saves missing test report to a JSON file       |
+| `-w, --watch`   |                     |                            | Watch for changes and reevaluate missing tests |
+| `-h, --help`    |                     |                            | Display help for command                       |
 
 #### Display In Terminal (default)
 

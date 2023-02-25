@@ -64,6 +64,7 @@
     "remark-cli": "11.0.0",
     "remark-toc": "^8.0.1",
     "rollup": "^3.9.0",
-    "semantic-release": "19.0.5"
+    "semantic-release": "19.0.5",
+    "simple-git": "^3.16.0"
   }
 }
