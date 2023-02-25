@@ -1,3 +1,5 @@
+// const simpleGit = require('simple-git');
+
 const { DEFAULT_CONFIG } = require('./constants');
 
 let chokidar;
@@ -5,6 +7,16 @@ let coy;
 let fs;
 let report;
 let vueCompilerSfc;
+
+jest.mock('simple-git', () => {
+  return () => ({
+    diffSummary() {
+      return {
+        files: [],
+      };
+    },
+  });
+});
 
 describe('coy.js', () => {
   beforeEach(() => {
