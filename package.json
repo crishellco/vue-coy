@@ -1,7 +1,7 @@
 {
   "name": "@crishellco/vue-coy",
   "version": "0.0.0-semantically-released",
-  "description": "A CLI tool to help identify missing Vue component tests.",
+  "description": "A CLI tool to help identify missing Vue Options API component tests.",
   "license": "MIT",
   "source": "src/index.js",
   "main": "dist/main.js",
