@@ -1,10 +1,11 @@
+const simpleGit = require('simple-git');
 const fs = require('fs');
 const chokidar = require('chokidar');
 const path = require('path');
 const vueCompilerSfc = require('@vue/compiler-sfc');
 const chalk = require('chalk');
 const glob = require('glob');
-const { camelCase, get, fill, defaults, mapValues, groupBy, trim, map, debounce } = require('lodash');
+const { camelCase, get, fill, defaults, mapValues, groupBy, trim, map, intersection } = require('lodash');
 const { DEFAULT_CONFIG, IGNORE_COMMENT, GROUPS_TO_TEST, HOOKS_TO_TEST } = require('./constants');
 
 module.exports = {
@@ -127,7 +128,7 @@ module.exports = {
     };
   },
 
-  main(options) {
+  async main(options) {
     let userConfig;
 
     try {
@@ -138,21 +139,33 @@ module.exports = {
     }
 
     this.config = defaults(userConfig, DEFAULT_CONFIG);
-    const onChange = () => {
-      const files = glob.sync(`@(${this.config.paths.join('|')})/**/*.vue`, { ignore: this.config.ignore });
+    const onChange = async () => {
+      let files = glob.sync(`@(${this.config.paths.join('|')})/**/*.vue`, { ignore: this.config.ignore });
+
+      if (options.changed) {
+        const git = simpleGit();
+        const diff = await git.diffSummary([`${options.changed}`]);
+        const changed = map(diff.files, 'file');
+        files = intersection(files, changed);
+      }
+
       const report = files.reduce((report, file) => this.fileReducer(report, file), {});
 
       options.save ? this.saveReport(report, options.save) : this.prettyPrintReport(report, options.watch);
     };
 
-    onChange();
+    await onChange();
 
     if (options.watch) {
       chokidar
         .watch(`@(${this.config.paths.join('|')})/**/*.(vue|${this.config.testFileExtension})`, {
           ignored: this.config.ignore,
+          awaitWriteFinish: {
+            stabilityThreshold: 500,
+            pollInterval: 100,
+          },
         })
-        .on('change', debounce(onChange, 200));
+        .on('change', onChange);
     }
   },
 };

@@ -79,19 +79,19 @@ describe('coy.js', () => {
     );
   });
 
-  test('main', () => {
+  test('main', async () => {
     chokidar.watch = jest.fn().mockReturnValue({ on: jest.fn() });
     coy.fileReducer = jest.fn().mockReturnValue(report);
     coy.saveReport = jest.fn();
     coy.prettyPrintReport = jest.fn();
 
-    coy.main({});
+    await coy.main({ changed: 'master' });
     expect(coy.prettyPrintReport).toHaveBeenCalled();
 
-    coy.main({ save: true });
+    await coy.main({ save: true });
     expect(coy.saveReport).toHaveBeenCalled();
 
-    coy.main({ watch: true });
+    await coy.main({ watch: true });
     expect(chokidar.watch).toHaveBeenCalled();
   });
 });
